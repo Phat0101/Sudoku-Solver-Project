@@ -1,0 +1,22 @@
+{
+  "name": "1",
+  "version": "1.0.0",
+  "description": "first version",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phat0101/Sudoku-Solver-Project.git"
+  },
+  "keywords": [
+    "winby2week"
+  ],
+  "author": "Patrick",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Phat0101/Sudoku-Solver-Project/issues"
+  },
+  "homepage": "https://github.com/Phat0101/Sudoku-Solver-Project#readme"
+}
