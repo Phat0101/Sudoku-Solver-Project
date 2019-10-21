@@ -9,7 +9,7 @@ $(document).ready(function() {
       $('.table').append('<tr></tr>');
       for (let j = 1; j < 10; j++) {
         $(`tr:nth-child(${i})`).append(`
-        <td id = "x${i}${j}" 
+        <td id = "x${i}${j}"
         onmouseenter = "highLight(this.id) "
         onmouseleave = "lowLight(this.id) ">
           <input type = number min = "1" max = "9" oninput = checkValid(this)>
@@ -20,8 +20,8 @@ $(document).ready(function() {
   createTable();
 });
 
-// get user input and convert to a 2D array
 
+// get user input and convert to a 2D array
 const getUserInput = () => {
   const arr = [];
   for (let i = 1; i < 10; i++) {
@@ -39,17 +39,30 @@ const getUserInput = () => {
 
   console.table(arr);
 };
+
+
 // Perform Logical Check to ensure user provide valid input (which can be calculated)
 // In other words "Correct Sudoku problem"
+// check row and column
 const checkRownColumn = (currentValue, xCoordinate, yCoordinate) => {
   for (let j = 1; j < 10; j++) {
-    if (j == xCoordinate && j == yCoordinate) {
-      console.log('same');
-    } else {
-      if ((currentValue == parseInt($(`tr:nth-child(${xCoordinate}) > td:nth-child(${j}) > input`).val()) && j != yCoordinate) ||
-        (currentValue == parseInt($(`tr:nth-child(${j}) > td:nth-child(${yCoordinate}) > input`).val()) && j != xCoordinate)) {
+    if ((currentValue == parseInt($(`tr:nth-child(${xCoordinate}) > td:nth-child(${j}) > input`).val()) && j != yCoordinate) ||
+            (currentValue == parseInt($(`tr:nth-child(${j}) > td:nth-child(${yCoordinate}) > input`).val()) && j != xCoordinate)) {
+      return false;
+    }
+  }
+  return true;
+};
+
+// check a group of 3*3
+const checkGroup = (currentValue, xCoordinate, yCoordinate) => {
+  const xTopLeft = (xCoordinate > 6) ? 7 : (xCoordinate > 3) ? 4 : 1;
+  const yTopLeft = (yCoordinate > 6) ? 7 : (yCoordinate > 3) ? 4 : 1;
+  for (let i = xTopLeft; i < xTopLeft + 3; i++) {
+    for (let j = yTopLeft; j < yTopLeft + 3; j++) {
+      if (currentValue == parseInt($(`tr:nth-child(${i}) > td:nth-child(${j}) > input`).val()) && i != xCoordinate && j != yCoordinate) {
         return false;
-      }
+      };
     }
   }
   return true;
@@ -57,16 +70,15 @@ const checkRownColumn = (currentValue, xCoordinate, yCoordinate) => {
 
 const checkValid = (i) => {
   const parentId = i.parentNode.id;
-  const currentValue = parseInt($(`tr:nth-child(${parseInt(parentId[1])}) 
+  const currentValue = parseInt($(`tr:nth-child(${parseInt(parentId[1])})
   > td:nth-child(${parseInt(parentId[2])}) > input`).val());
   const xCoordinate = parseInt(parentId[1]);
   const yCoordinate = parseInt(parentId[2]);
-  console.log([currentValue, [xCoordinate, yCoordinate]]);
-  if (!checkRownColumn(currentValue, xCoordinate, yCoordinate)) {
+  if (!checkRownColumn(currentValue, xCoordinate, yCoordinate) || !checkGroup(currentValue, xCoordinate, yCoordinate)) {
     $(`#${parentId} > input`).css('color', 'red');
   } else {
     $(`#${parentId} > input`).css('color', 'black');
-  }
+  };
 };
 
 
@@ -92,11 +104,13 @@ const lowLight = (id) => {
   }
 };
 
+
 // solve sudoku when triggered in html button "Solve"
 const solve = () => {
   getUserInput();
   display(solvedArray);
 };
+
 
 // Display output from logic.js to page
 const solvedArray = [];
