@@ -1,7 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 'use strict';
-
+const memoryArray = [[
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+]];
 $(document).ready(function() {
   // dynamically create sudoku table of 9x9
   const createTable = () => {
@@ -21,7 +31,7 @@ $(document).ready(function() {
 });
 
 
-// get user input and convert to a 2D array
+// get user input and return a 2D array
 const getUserInput = () => {
   const arr = [];
   for (let i = 1; i < 10; i++) {
@@ -36,8 +46,7 @@ const getUserInput = () => {
     }
     arr.push(row);
   };
-
-  console.table(arr);
+  return arr;
 };
 
 
@@ -47,7 +56,7 @@ const getUserInput = () => {
 const checkRownColumn = (currentValue, xCoordinate, yCoordinate) => {
   for (let j = 1; j < 10; j++) {
     if ((currentValue == parseInt($(`tr:nth-child(${xCoordinate}) > td:nth-child(${j}) > input`).val()) && j != yCoordinate) ||
-            (currentValue == parseInt($(`tr:nth-child(${j}) > td:nth-child(${yCoordinate}) > input`).val()) && j != xCoordinate)) {
+      (currentValue == parseInt($(`tr:nth-child(${j}) > td:nth-child(${yCoordinate}) > input`).val()) && j != xCoordinate)) {
       return false;
     }
   }
@@ -79,6 +88,7 @@ const checkValid = (i) => {
   } else {
     $(`#${parentId} > input`).css('color', 'black');
   };
+  memoryArray.push(getUserInput());
 };
 
 
@@ -104,6 +114,26 @@ const lowLight = (id) => {
   }
 };
 
+// Utiliy functions:
+// Undo to the previous entered value
+const undo = () => {
+  console.table(memoryArray[memoryArray.length-1]);
+  display(memoryArray[memoryArray.length - 2]);
+  if (memoryArray.length >2) {
+    memoryArray.pop();
+  }
+};
+
+// Clear the whole table
+const clearTable = () => {
+  memoryArray.push(getUserInput());
+  for (let i = 1; i < 10; i++) {
+    for (let j = 1; j < 10; j++) {
+      $(`tr:nth-child(${i}) > td:nth-child(${j}) > input`).val(null);
+    }
+  };
+};
+
 
 // solve sudoku when triggered in html button "Solve"
 const solve = () => {
@@ -122,10 +152,13 @@ for (let i = 1; i < 10; i++) {
   solvedArray.push(x);
 }
 const display = (solvedArray) => {
-  console.table(solvedArray);
   for (let i = 1; i < 10; i++) {
     for (let j = 1; j < 10; j++) {
-      $(`tr:nth-child(${i}) > td:nth-child(${j})`).html(`${solvedArray[i - 1][j - 1]}`);
+      if (solvedArray[i - 1][j - 1] != 0) {
+        $(`tr:nth-child(${i}) > td:nth-child(${j}) > input`).val(`${solvedArray[i - 1][j - 1]}`);
+      } else {
+        $(`tr:nth-child(${i}) > td:nth-child(${j}) > input`).val(null);
+      }
     }
   }
 };
