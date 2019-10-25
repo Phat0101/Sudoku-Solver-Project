@@ -5,5 +5,8 @@ Start day: 11/10/2019
 Libraries: 
   - Jquery
   - Bootstrap
+  - Npm
 Tools:
   - Font-awesome
+Coding convention: 
+  Eslint: Google styleguide
