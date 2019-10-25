@@ -11,6 +11,21 @@ const array = [
   [2, 0, 0, 0, 0, 0, 0, 0, 5],
 ];
 
+const referenceArray = [...array];
+// create a reference array
+const createReference = (array) => {
+  const x = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (array[i][j] == 0) {
+        array[i][j] = x;
+      }
+    }
+  }
+  console.log(array);
+};
+createReference(array);
+
 // check if the solution is valid
 const check = (array) => {
   let sumRow = 0;
@@ -29,3 +44,4 @@ const check = (array) => {
   return true;
 };
 console.log(check(array));
+// console.log(check(array));
