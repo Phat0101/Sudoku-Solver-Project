@@ -1,16 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
-const memoryArray = [[
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-]];
+const memoryArray = [
+  [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ],
+];
 $(document).ready(function() {
   // dynamically create sudoku table of 9x9
   const createTable = () => {
@@ -55,7 +57,7 @@ const getUserInput = () => {
 const checkRownColumn = (currentValue, xCoordinate, yCoordinate) => {
   for (let j = 1; j < 10; j++) {
     if ((currentValue == parseInt($(`tr:nth-child(${xCoordinate}) > td:nth-child(${j}) > input`).val()) && j != yCoordinate) ||
-      (currentValue == parseInt($(`tr:nth-child(${j}) > td:nth-child(${yCoordinate}) > input`).val()) && j != xCoordinate)) {
+            (currentValue == parseInt($(`tr:nth-child(${j}) > td:nth-child(${yCoordinate}) > input`).val()) && j != xCoordinate)) {
       return false;
     }
   }
@@ -82,7 +84,7 @@ const checkValid = (i) => {
   > td:nth-child(${parseInt(parentId[2])}) > input`).val());
   const xCoordinate = parseInt(parentId[1]);
   const yCoordinate = parseInt(parentId[2]);
-  if (!checkRownColumn(currentValue, xCoordinate, yCoordinate) || !checkGroup(currentValue, xCoordinate, yCoordinate) || currentValue >9 || currentValue < 1) {
+  if (!checkRownColumn(currentValue, xCoordinate, yCoordinate) || !checkGroup(currentValue, xCoordinate, yCoordinate) || currentValue > 9 || currentValue < 1) {
     $(`#${parentId} > input`).css('color', 'red');
   } else {
     $(`#${parentId} > input`).css('color', 'black');
@@ -116,9 +118,9 @@ const lowLight = (id) => {
 // Utiliy functions:
 // Undo to the previous entered value
 const undo = () => {
-  console.table(memoryArray[memoryArray.length-1]);
-  display(memoryArray[memoryArray.length - 1], memoryArray[memoryArray.length-1]);
-  if (memoryArray.length >1) {
+  console.table(memoryArray[memoryArray.length - 1]);
+  display(memoryArray[memoryArray.length - 1], memoryArray[memoryArray.length - 1]);
+  if (memoryArray.length > 1) {
     memoryArray.pop();
   }
 };
@@ -140,7 +142,7 @@ const display = (solvedArray, userInputArray) => {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (solvedArray[i][j] != 0) {
-        $(`tr:nth-child(${i+1}) > td:nth-child(${j+1}) > input`).val(`${solvedArray[i][j]}`);
+        $(`tr:nth-child(${i+1}) > td:nth-child(${j+1}) > input`).val(`${s+olvedArray[i][j]}`);
         if (userInputArray[i][j] == 0) {
           $(`tr:nth-child(${i+1}) > td:nth-child(${j+1}) > input`).css('color', 'blue');
         }
@@ -190,10 +192,10 @@ function solveSudoku(array) {
         if (!checkEach(array[i][j], array, i, j)) {
           return false;
         }
-        sumRow+=array[i][j];
-        sumColumn+=array[j][i];
+        sumRow += array[i][j];
+        sumColumn += array[j][i];
       }
-      if (sumRow!=45 || sumColumn !=45) {
+      if (sumRow != 45 || sumColumn != 45) {
         return false;
       }
     }
@@ -204,9 +206,9 @@ function solveSudoku(array) {
   const checkGroup = (value, currentArray, xCoordinate, yCoordinate) => {
     const xTopLeft = (xCoordinate > 5) ? 6 : (xCoordinate > 2) ? 3 : 0;
     const yTopLeft = (yCoordinate > 5) ? 6 : (yCoordinate > 2) ? 3 : 0;
-    for (let i = xTopLeft; i < xTopLeft+3; i++) {
-      for (let j = yTopLeft; j < yTopLeft+3; j++) {
-        if (i!= xCoordinate && j != yCoordinate && (typeof currentArray[i][j] == 'number') && value == currentArray[i][j] && currentArray[i][j] !=0) {
+    for (let i = xTopLeft; i < xTopLeft + 3; i++) {
+      for (let j = yTopLeft; j < yTopLeft + 3; j++) {
+        if (i != xCoordinate && j != yCoordinate && (typeof currentArray[i][j] == 'number') && value == currentArray[i][j] && currentArray[i][j] != 0) {
           return false;
         }
       }
@@ -217,8 +219,8 @@ function solveSudoku(array) {
   // check the value in the its row and column
   const checkRowColumn = (value, currentArray, xCoordinate, yCoordinate) => {
     for (let i = 0; i < 9; i++) {
-      if ( (i!=xCoordinate && (typeof currentArray[i][yCoordinate]== 'number' && currentArray[i][yCoordinate] != 0 && value == currentArray[i][yCoordinate]) ||
-    (i!=yCoordinate && (typeof currentArray[xCoordinate][i] == 'number')) && value == currentArray[xCoordinate][i])&& currentArray[xCoordinate][i] != 0 ) {
+      if ((i != xCoordinate && (typeof currentArray[i][yCoordinate] == 'number' && currentArray[i][yCoordinate] != 0 && value == currentArray[i][yCoordinate]) ||
+                    (i != yCoordinate && (typeof currentArray[xCoordinate][i] == 'number')) && value == currentArray[xCoordinate][i]) && currentArray[xCoordinate][i] != 0) {
         return false;
       }
     }
@@ -247,7 +249,7 @@ function solveSudoku(array) {
               truePossibilities.push(arr[x][y][i]);
             }
           }
-          if (truePossibilities.length==1) {
+          if (truePossibilities.length == 1) {
             arr[x][y] = truePossibilities[0];
           } else {
             arr[x][y] = truePossibilities;
@@ -262,22 +264,22 @@ function solveSudoku(array) {
   let flag = false;
   let solvedArray = [];
   const backTrack = (x, y) => {
-    if (y>8) {
+    if (y > 8) {
       y = 0;
-      x+=1;
+      x += 1;
     }
-    if (x==9) {
+    if (x == 9) {
       if (check(solvedArray)) {
         flag = true;
       }
       return;
     }
     if (typeof referenceArray[x][y] != 'number') {
-      for (let i = 0; i<referenceArray[x][y].length; i++) {
+      for (let i = 0; i < referenceArray[x][y].length; i++) {
         if (checkEach(referenceArray[x][y][i], solvedArray, x, y)) {
           solvedArray[x][y] = referenceArray[x][y][i];
-          if (y<9 && typeof solvedArray[x][y] == 'number') {
-            backTrack(x, y+1);
+          if (y < 9 && typeof solvedArray[x][y] == 'number') {
+            backTrack(x, y + 1);
           }
         }
         if (flag) {
@@ -287,15 +289,23 @@ function solveSudoku(array) {
       solvedArray[x][y] = 0;
     } else {
       solvedArray[x][y] = referenceArray[x][y];
-      backTrack(x, y+1);
+      backTrack(x, y + 1);
     }
   };
 
+  // start calculating
+  const start = performance.now();
   for (let i = 0; i < 10; i++) {
     referenceArray = elimination(referenceArray);
   };
   solvedArray = JSON.parse(JSON.stringify(referenceArray));
   const x = backTrack(0, 0);
   console.log(solvedArray);
+  const end = Math.round(performance.now() - start);
+  if (end > 1000) {
+    alert(`Finish in ${end/1000} seconds`);
+  } else {
+    alert(`Finish in ${end} miliseconds`);
+  }
   return solvedArray;
 };
