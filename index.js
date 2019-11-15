@@ -82,7 +82,7 @@ const checkValid = (i) => {
   > td:nth-child(${parseInt(parentId[2])}) > input`).val());
   const xCoordinate = parseInt(parentId[1]);
   const yCoordinate = parseInt(parentId[2]);
-  if (!checkRownColumn(currentValue, xCoordinate, yCoordinate) || !checkGroup(currentValue, xCoordinate, yCoordinate)) {
+  if (!checkRownColumn(currentValue, xCoordinate, yCoordinate) || !checkGroup(currentValue, xCoordinate, yCoordinate) || currentValue >9 || currentValue < 1) {
     $(`#${parentId} > input`).css('color', 'red');
   } else {
     $(`#${parentId} > input`).css('color', 'black');
@@ -117,7 +117,7 @@ const lowLight = (id) => {
 // Undo to the previous entered value
 const undo = () => {
   console.table(memoryArray[memoryArray.length-1]);
-  display(memoryArray[memoryArray.length - 1], [[]]);
+  display(memoryArray[memoryArray.length - 1], memoryArray[memoryArray.length-1]);
   if (memoryArray.length >1) {
     memoryArray.pop();
   }
@@ -187,6 +187,9 @@ function solveSudoku(array) {
       sumRow = 0;
       sumColumn = 0;
       for (let j = 0; j < 9; j++) {
+        if (!checkEach(array[i][j], array, i, j)) {
+          return false;
+        }
         sumRow+=array[i][j];
         sumColumn+=array[j][i];
       }
