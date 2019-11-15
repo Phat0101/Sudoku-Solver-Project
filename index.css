@@ -1,54 +1,64 @@
 /* body */
-body {  
-  font-family: 'Open Sans', sans-serif;
-}
-/* heading  */
-.heading {
-  position: relative;
-  box-sizing: border-box;
-  height: 100px;
-  width: max-content;
-}
-.heading h1 {
 
+body {
+    font-family: 'Open Sans', sans-serif;
 }
+
+
+/* heading  */
+
+.heading {
+    position: relative;
+    box-sizing: border-box;
+    height: 100px;
+    width: max-content;
+}
+
+.heading h1 {}
+
+
 /* solve button  */
 
+
 /* Sudoku table */
+
 table,
 tr,
 td {
-  border: 1.5px solid rgb(150, 150, 150);
+    border: 1.5px solid rgb(150, 150, 150);
 }
+
 table {
-  /* table-layout: auto; */
-  border-collapse: collapse;
-  display: flexbox;
-  width: 80%;
-  padding-top: 100%;
+    /* table-layout: auto; */
+    border-collapse: collapse;
+    display: flexbox;
+    width: 80%;
+    padding-top: 100%;
 }
+
 tr {
-  width: 100%;
-  height: max-content;
+    width: 100%;
+    height: max-content;
 }
 
 tr:nth-child(3) td,
 tr:nth-child(6) td {
-  border-bottom: 3px solid rgb(0, 0, 0);
+    border-bottom: 3px solid rgb(0, 0, 0);
 }
+
 td:nth-child(3),
 td:nth-child(6) {
-  border-right: 3px solid rgb(0, 0, 0);
+    border-right: 3px solid rgb(0, 0, 0);
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type="number"] {
-  -webkit-appearance: textfield;
-  margin: auto;
-  border: none;
-  /* background-color: brown; */
+    -webkit-appearance: textfield;
+    margin: auto;
+    border: none;
 }
