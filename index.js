@@ -142,7 +142,7 @@ const display = (solvedArray, userInputArray) => {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (solvedArray[i][j] != 0) {
-        $(`tr:nth-child(${i+1}) > td:nth-child(${j+1}) > input`).val(`${s+olvedArray[i][j]}`);
+        $(`tr:nth-child(${i+1}) > td:nth-child(${j+1}) > input`).val(`${solvedArray[i][j]}`);
         if (userInputArray[i][j] == 0) {
           $(`tr:nth-child(${i+1}) > td:nth-child(${j+1}) > input`).css('color', 'blue');
         }
@@ -303,9 +303,12 @@ function solveSudoku(array) {
   console.log(solvedArray);
   const end = Math.round(performance.now() - start);
   if (end > 1000) {
-    alert(`Finish in ${end/1000} seconds`);
+    $('#solve').text(`Solved in ${end/1000} seconds`);
   } else {
-    alert(`Finish in ${end} miliseconds`);
-  }
+    $('#solve').text(`Solved in ${end} miliseconds`);
+  };
+  setTimeout(function() {
+    $('#solve').text(`Solve`);
+  }, 2000);
   return solvedArray;
 };
