@@ -119,8 +119,8 @@ const lowLight = (id) => {
 // Undo to the previous entered value
 const undo = () => {
   console.table(memoryArray[memoryArray.length - 1]);
-  display(memoryArray[memoryArray.length - 1], memoryArray[memoryArray.length - 1]);
-  if (memoryArray.length > 1) {
+  display(memoryArray[memoryArray.length - 2], memoryArray[memoryArray.length - 2]);
+  if (memoryArray.length > 2) {
     memoryArray.pop();
   }
 };
@@ -158,6 +158,8 @@ const solve = () => {
   const userInputArray = getUserInput();
   const array = solveSudoku(userInputArray);
   display(array, userInputArray);
+  memoryArray.push(array);
+  console.log(memoryArray);
 };
 
 
